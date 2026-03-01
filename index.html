@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+  <title>PhishGuard PRO · manual download</title>
+  <!-- Font Awesome 6 (free) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* -------------------- PROFESSIONAL GLASS BLUE -------------------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      background: radial-gradient(circle at 0% 30%, rgba(40, 120, 255, 0.5), rgba(5, 25, 60, 0.98)),
+                  linear-gradient(145deg, #0a2540 0%, #1f5f9e 100%);
+      background-attachment: fixed;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      width: 70vmax;
+      height: 70vmax;
+      top: -20vh;
+      right: -10vw;
+      background: radial-gradient(circle, rgba(120, 200, 255, 0.15) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .phishguard-app {
+      width: 100%;
+      max-width: 1200px;
+      background: rgba(18, 40, 70, 0.35);
+      backdrop-filter: blur(22px) saturate(200%);
+      -webkit-backdrop-filter: blur(22px) saturate(200%);
+      border-radius: 48px;
+      box-shadow: 0 40px 80px rgba(0, 10, 30, 0.7), 0 0 0 1.5px rgba(255, 255, 255, 0.2) inset;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      overflow: hidden;
+      z-index: 10;
+    }
+
+    .app-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.2rem 2.2rem;
+      background: rgba(10, 30, 60, 0.4);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .shield-icon {
+      background: linear-gradient(150deg, #2266cc, #103a70);
+      color: white;
+      width: 58px;
+      height: 58px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      box-shadow: 0 18px 30px rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+
+    .logo-area h1 {
+      font-weight: 700;
+      font-size: 2.3rem;
+      background: linear-gradient(to right, #ffffff, #cde1ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 5px 20px #003388;
+    }
+
+    .badge-header {
+      background: rgba(0, 180, 150, 0.3);
+      backdrop-filter: blur(10px);
+      color: white;
+      padding: 0.6rem 2rem;
+      border-radius: 60px;
+      border: 1px solid rgba(255,255,255,0.5);
+      font-weight: 600;
+      font-size: 0.9rem;
+    }
+
+    .app-layout {
+      display: flex;
+      flex-direction: column;
+    }
+
+    @media (min-width: 720px) {
+      .app-layout {
+        flex-direction: row;
+      }
+    }
+
+    .nav-sidebar {
+      background: rgba(8, 25, 45, 0.5);
+      backdrop-filter: blur(18px);
+      padding: 2rem 1rem 2rem 1.8rem;
+      border-right: 1px solid rgba(255, 255, 255, 0.15);
+    }
+
+    @media (min-width: 720px) {
+      .nav-sidebar {
+        width: 260px;
+      }
+    }
+
+    .nav-header {
+      text-transform: uppercase;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: rgba(200, 220, 250, 0.8);
+      letter-spacing: 0.12em;
+      margin-bottom: 1.5rem;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 0.9rem 1rem;
+      margin-right: 1.2rem;
+      border-radius: 30px 0 0 30px;
+      color: white;
+      font-weight: 500;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: 1px solid transparent;
+    }
+
+    .nav-item i {
+      width: 26px;
+      font-size: 1.2rem;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .nav-item.active {
+      background: rgba(255, 255, 255, 0.2);
+      border-left: 6px solid white;
+      border-top: 1px solid rgba(255,255,255,0.3);
+      border-bottom: 1px solid rgba(255,255,255,0.3);
+      font-weight: 600;
+      box-shadow: 0 12px 30px rgba(0, 20, 60, 0.5);
+    }
+
+    .content-panel {
+      flex: 1;
+      background: rgba(18, 45, 75, 0.25);
+      backdrop-filter: blur(24px);
+      padding: 2.2rem 2.5rem 2.5rem 2.5rem;
+      border-radius: 0 0 48px 0;
+    }
+
+    .panel-title {
+      font-size: 2.3rem;
+      font-weight: 700;
+      background: linear-gradient(to bottom, #fff, #d0e8ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 0.25rem;
+    }
+
+    .panel-sub {
+      color: rgba(255, 255, 255, 0.85);
+      font-size: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .input-label {
+      color: white;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* ===== TEXTAREA WITH SCAN ANIMATION OVERLAY ===== */
+    .textarea-wrapper {
+      position: relative;
+      width: 100%;
+      border-radius: 28px;
+      overflow: hidden;
+    }
+
+    .email-textarea {
+      width: 100%;
+      border: 2px solid rgba(255, 255, 255, 0.5);
+      border-radius: 28px;
+      padding: 1.3rem;
+      background: rgba(0, 20, 40, 0.3);
+      backdrop-filter: blur(20px);
+      color: white;
+      font-size: 1rem;
+      line-height: 1.5;
+      resize: vertical;
+      min-height: 200px;
+      font-family: 'SF Mono', 'Fira Code', monospace;
+      transition: border 0.2s;
+      position: relative;
+      z-index: 2;
+    }
+
+    .email-textarea:focus {
+      outline: none;
+      border-color: white;
+      box-shadow: 0 0 0 6px rgba(255,255,255,0.1);
+    }
+
+    /* scanning animation overlay */
+    .scan-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(115deg, 
+        rgba(0, 160, 255, 0.1) 0%, 
+        rgba(120, 220, 255, 0.2) 25%, 
+        rgba(0, 160, 255, 0.1) 50%,
+        rgba(120, 220, 255, 0.2) 75%,
+        rgba(0, 160, 255, 0.1) 100%);
+      background-size: 300% 100%;
+      border-radius: 28px;
+      pointer-events: none;
+      z-index: 5;
+      mix-blend-mode: overlay;
+      border: 2px solid rgba(255,255,255,0.3);
+      box-shadow: 0 0 20px rgba(0, 200, 255, 0.5) inset;
+      animation: scanMove 1.8s linear infinite;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .scan-overlay.active {
+      opacity: 1;
+    }
+
+    @keyframes scanMove {
+      0% { background-position: 0% 0%; }
+      100% { background-position: 300% 0%; }
+    }
+
+    /* additional scanning pulse on text */
+    .scan-pulse {
+      animation: textPulse 1.2s ease-in-out infinite;
+    }
+
+    @keyframes textPulse {
+      0% { text-shadow: 0 0 5px rgba(0,200,255,0); }
+      50% { text-shadow: 0 0 15px rgba(0,200,255,0.5); }
+      100% { text-shadow: 0 0 5px rgba(0,200,255,0); }
+    }
+
+    .char-stats {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 0.8rem 0 1.5rem;
+    }
+
+    .char-count {
+      background: rgba(0, 20, 50, 0.5);
+      backdrop-filter: blur(10px);
+      padding: 0.4rem 1.4rem;
+      border-radius: 40px;
+      color: white;
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+
+    .analyze-btn {
+      background: linear-gradient(145deg, #2a6fd6, #12428b);
+      border: none;
+      color: white;
+      padding: 1rem 2rem;
+      width: 100%;
+      font-size: 1.3rem;
+      font-weight: 600;
+      border-radius: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      cursor: pointer;
+      box-shadow: 0 25px 45px rgba(0, 0, 0, 0.5);
+      border: 1px solid rgba(255,255,255,0.5);
+      transition: 0.15s;
+    }
+
+    .analyze-btn:active { transform: scale(0.98); background: #1e56b0; }
+    .analyze-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    .result-card {
+      background: rgba(0, 20, 50, 0.4);
+      backdrop-filter: blur(30px);
+      border-radius: 36px;
+      padding: 1.8rem;
+      margin: 2rem 0 1rem;
+      border-left: 12px solid;
+      color: white;
+    }
+
+    .risk-header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+
+    .risk-icon { font-size: 2.5rem; }
+    .risk-title { font-size: 1.8rem; font-weight: 700; }
+    .badge {
+      padding: 0.4rem 1.4rem;
+      border-radius: 40px;
+      font-weight: 600;
+      background: rgba(255,255,255,0.2);
+      backdrop-filter: blur(8px);
+      border: 1px solid white;
+      color: white;
+      margin-left: auto;
+    }
+
+    .history-item {
+      background: rgba(10, 30, 60, 0.4);
+      backdrop-filter: blur(20px);
+      border-radius: 28px;
+      padding: 1.2rem 1.5rem;
+      border: 1px solid rgba(255,255,255,0.3);
+      margin-bottom: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      color: white;
+    }
+
+    /* Manual Install Section - with clear instructions */
+    .install-section {
+      background: rgba(30, 80, 140, 0.35);
+      backdrop-filter: blur(30px);
+      border-radius: 48px;
+      margin: 2rem 0 0.8rem;
+      padding: 1.5rem 2rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      border: 2px solid rgba(255,255,255,0.5);
+    }
+
+    .install-text {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      color: white;
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+
+    .manual-download-btn {
+      background: rgba(255,255,255,0.2);
+      border: 2px solid white;
+      color: white;
+      padding: 0.8rem 2.5rem;
+      border-radius: 60px;
+      font-weight: 700;
+      font-size: 1.2rem;
+      cursor: pointer;
+      backdrop-filter: blur(10px);
+      transition: 0.15s;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .manual-download-btn:hover {
+      background: rgba(255,255,255,0.35);
+    }
+
+    .manual-instruction {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.8);
+      margin-top: 0.5rem;
+      width: 100%;
+      text-align: center;
+      border-top: 1px dashed rgba(255,255,255,0.3);
+      padding-top: 0.8rem;
+    }
+
+    .webforge-credit {
+      text-align: center;
+      padding: 1rem;
+      color: rgba(255,255,255,0.9);
+      border-top: 1px solid rgba(255,255,255,0.2);
+      background: rgba(0,0,0,0.15);
+      font-weight: 500;
+      font-size: 1rem;
+    }
+
+    .footer-note {
+      display: flex;
+      justify-content: space-between;
+      color: rgba(255,255,255,0.8);
+      font-size: 0.8rem;
+      margin-top: 1.5rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(255,255,255,0.2);
+    }
+  </style>
+</head>
+<body>
+  <div class="phishguard-app">
+    <div class="app-header">
+      <div class="logo-area">
+        <div class="shield-icon"><i class="fas fa-shield-virus"></i></div>
+        <h1>PhishGuard PRO</h1>
+      </div>
+      <div class="badge-header"><i class="fas fa-check-circle"></i>WEBFORGE · Team</div>
+    </div>
+
+    <div class="app-layout">
+      <div class="nav-sidebar">
+        <div class="nav-header">NAVIGATION</div>
+        <div class="nav-item active" id="navNewAnalysis"><i class="fas fa-file-lines"></i> New Analysis</div>
+        <div class="nav-item" id="navScanHistory"><i class="fas fa-clock-rotate-left"></i> Scan History</div>
+        <div style="margin-top: 2.5rem; color: rgba(255,255,255,0.5); padding-left: 1rem;">
+          <i class="fa-regular fa-copyright"></i> professional edition
+        </div>
+      </div>
+
+      <div class="content-panel" id="mainContent"></div>
+    </div>
+    <div class="webforge-credit">
+      <i class="fas fa-code"></i> Build by WebForge Team ·&copy 2026
+    </div>
+  </div>
+
+  <script>
+    (function() {
+      // State & persistence
+      let scanHistory = [];
+      try {
+        const saved = localStorage.getItem('phishguard_history');
+        if (saved) scanHistory = JSON.parse(saved);
+      } catch (e) {}
+
+      function saveHistory() {
+        try { localStorage.setItem('phishguard_history', JSON.stringify(scanHistory)); } catch (e) {}
+      }
+
+      let currentPage = 'newAnalysis';
+      const main = document.getElementById('mainContent');
+      const navNew = document.getElementById('navNewAnalysis');
+      const navHistory = document.getElementById('navScanHistory');
+
+      // Advanced phishing engine
+      function analyzeRisk(emailText) {
+        const lower = emailText.toLowerCase();
+        let score = 0;
+        let details = [];
+
+        if (lower.includes('from:')) {
+          const fromMatch = lower.match(/from:\s*([^\n]*)/i);
+          if (fromMatch) {
+            const fromVal = fromMatch[1];
+            if (fromVal.match(/@(paypa?l|paypa1|secure-|bankofamerica|chase|wellsfargo|apple|amazon|microsoft|irs|gov)/i)) score += 20, details.push('Suspicious sender domain');
+            if (fromVal.match(/\.(tk|ml|ga|cf|gq|xyz|top|loan|work|account|secure|verify|click|help)\b/i)) score += 20, details.push('Risky TLD in sender');
+          }
+        }
+
+        const replyMatch = lower.match(/reply-to:\s*([^\n]*)/i);
+        const fromMatch = lower.match(/from:\s*([^\n]*)/i);
+        if (replyMatch && fromMatch && replyMatch[1].trim() !== fromMatch[1].trim()) {
+          score += 30;
+          details.push('Reply-To differs from From (red flag)');
+        } else if (replyMatch) {
+          score += 8;
+          details.push('Reply-To header present');
+        }
+
+        const returnPath = lower.match(/return-path:\s*([^\n]*)/i);
+        if (returnPath && fromMatch && !returnPath[1].includes(fromMatch[1].split('@')[1]?.replace('>',''))) {
+          score += 25;
+          details.push('Return-Path mismatch');
+        }
+
+        const urgency = ['urgent', 'suspended', 'limited', 'verify immediately', 'click below', 'within 24h', 'account closure', 'unusual activity', 'password expired', 'update payment', 'keep your account', 'reactivate', 'restricted', 'blocked'];
+        urgency.forEach(word => { if (lower.includes(word)) { score += 5; details.push(`urgency: "${word}"`); } });
+
+        const links = lower.match(/https?:\/\/[^\s"']+/g) || [];
+        links.forEach(link => {
+          if (link.includes('bit.ly') || link.includes('tinyurl') || link.includes('shortlink')) score += 12, details.push('shortened URL (obfuscation)');
+          const domainMatch = link.match(/https?:\/\/([^\/]+)/);
+          if (domainMatch) {
+            const domain = domainMatch[1].toLowerCase();
+            const brands = ['paypal', 'apple', 'amazon', 'microsoft', 'chase', 'wellsfargo', 'dropbox', 'dhl'];
+            for (let b of brands) if (domain.includes(b) && !domain.endsWith('.com') && !domain.endsWith('.org') && !domain.endsWith('.net')) { score += 20; details.push(`deceptive ${b} link`); break; }
+          }
+        });
+
+        if (lower.includes('<form') || lower.includes('action=')) { score += 12; details.push('embedded form'); }
+        if (lower.includes('.exe') || lower.includes('.zip') || lower.includes('attach')) { score += 15; details.push('dangerous attachment'); }
+        if (lower.includes('password') || lower.includes('credential')) score += 8;
+
+        score = Math.min(100, Math.max(0, score));
+        let risk = 'low';
+        if (score >= 60) risk = 'high';
+        else if (score >= 30) risk = 'medium';
+
+        const unique = [...new Set(details)].slice(0, 6);
+        return { score, risk, details: unique };
+      }
+
+      function renderResult(risk, score, details, parent) {
+        let icon = '✅', title = 'Low Risk', color = '#6fda9f';
+        if (risk === 'high') { icon = '🚫'; title = 'HIGH RISK - Phishing Likely'; color = '#ff8a8a'; }
+        else if (risk === 'medium') { icon = '⚠️'; title = 'MEDIUM RISK - Suspicious'; color = '#f9c39c'; }
+
+        const detailHtml = details.length ? 
+          '<ul style="margin-left:1.2rem;">' + details.map(d => `<li>🔸 ${d}</li>`).join('') + '</ul>' : 
+          '<p>No strong indicators, but always verify sender.</p>';
+
+        parent.innerHTML = `
+          <div class="result-card" style="border-left-color: ${color};">
+            <div class="risk-header">
+              <span class="risk-icon">${icon}</span>
+              <span class="risk-title">${title}</span>
+              <span class="badge">score ${score}/100</span>
+            </div>
+            ${detailHtml}
+            <div style="display:flex; align-items:center; gap:12px; margin-top:1rem;">
+              <span>threat level</span>
+              <div class="meter-bar"><div class="meter-fill" style="width:${score}%; background:white;"></div></div>
+              <span>${score}%</span>
+            </div>
+          </div>
+        `;
+      }
+
+      // MANUAL DOWNLOAD METHOD - creates a downloadable link (manual save)
+      function manualDownload() {
+        // Create the full HTML content as a string
+        const doctype = '<!DOCTYPE html>\n';
+        const html = document.documentElement.outerHTML;
+        const blob = new Blob([doctype + html], { type: 'text/html' });
+        
+        // Create an object URL
+        const url = URL.createObjectURL(blob);
+        
+        // Create a temporary anchor element with download attribute
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'PhishGuard_Professional.html'; // filename for download
+        a.style.display = 'none';
+        
+        // Append to body, click, and remove (manual trigger)
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        
+        // Clean up the object URL
+        URL.revokeObjectURL(url);
+        
+        // Optional: Show a small confirmation (appears in result area if needed)
+        const liveResult = document.getElementById('liveResult');
+        if (liveResult) {
+          const msg = document.createElement('div');
+          msg.style.background = 'rgba(0,100,200,0.3)';
+          msg.style.borderRadius = '20px';
+          msg.style.padding = '0.8rem';
+          msg.style.marginTop = '1rem';
+          msg.style.textAlign = 'center';
+          msg.style.color = 'white';
+          msg.innerHTML = '📁 Download started — save the file to install PhishGuard on any device.';
+          liveResult.appendChild(msg);
+          setTimeout(() => msg.remove(), 4000);
+        }
+      }
+
+      // Render New Analysis with SCAN ANIMATION
+      function renderNewAnalysis(initialText = '') {
+        const defaultText = initialText || `From: support@paypa1.com
+Reply-To: verify-now@fake-account.tk
+Return-Path: bounce@malicious.xyz
+Subject: Urgent: Account suspension warning
+
+Dear customer, we noticed unusual activity. Verify immediately to keep your account.
+
+Click here: http://fake-paypal-verify.xyz/login
+
+We take security seriously.`;
+
+        const escaped = defaultText.replace(/</g, '&lt;');
+        const html = `
+          <div class="panel-title">New Analysis</div>
+          <div class="panel-sub">Paste email content — scanning animation included</div>
+          <div class="input-label"><i class="fas fa-paste"></i> Raw Email Content</div>
+          <div class="textarea-wrapper">
+            <textarea id="emailInput" class="email-textarea" placeholder="Paste email content...">${escaped}</textarea>
+            <div id="scanOverlay" class="scan-overlay"></div>
+          </div>
+          <div class="char-stats">
+            <span class="char-count" id="charCounter"><i class="far fa-keyboard"></i> <span id="charCountNumber">${defaultText.length}</span> chars</span>
+            <span style="color:rgba(255,255,255,0.8);">min 10</span>
+          </div>
+          <button class="analyze-btn" id="analyzeBtn"><i class="fa-solid fa-bolt"></i> Run Professional Analysis</button>
+          <div id="liveResult"></div>
+
+          <!-- MANUAL INSTALL SECTION (manual download) -->
+          <div class="install-section">
+            <div class="install-text">
+              <i class="fas fa-download" style="font-size:2rem;"></i> Install PhishGuard
+            </div>
+            <button class="manual-download-btn" id="manualInstallBtn">
+              <i class="fa-solid fa-save"></i> Save App (Manual)
+            </button>
+            <div class="manual-instruction">
+              <i class="fa-regular fa-circle-question"></i> Click button → save HTML file → open on any device
+            </div>
+          </div>
+
+          <div class="footer-note">
+            <span><i class="fa-regular fa-shield"></i> WebForge v2.0</span>
+            <span><i class="fa-regular fa-clock"></i> real‑time</span>
+          </div>
+        `;
+        main.innerHTML = html;
+
+        const textarea = document.getElementById('emailInput');
+        const charSpan = document.getElementById('charCountNumber');
+        const liveDiv = document.getElementById('liveResult');
+        const analyzeBtn = document.getElementById('analyzeBtn');
+        const scanOverlay = document.getElementById('scanOverlay');
+
+        textarea.addEventListener('input', () => charSpan.innerText = textarea.value.length);
+        const res = analyzeRisk(defaultText);
+        renderResult(res.risk, res.score, res.details, liveDiv);
+
+        // Scan animation on click
+        analyzeBtn.addEventListener('click', () => {
+          const txt = textarea.value;
+          if (txt.length < 10) {
+            liveDiv.innerHTML = '<div style="background:#c05a5a40; border-radius:28px; padding:1rem;">⚠️ Please enter at least 10 characters.</div>';
+            return;
+          }
+
+          analyzeBtn.disabled = true;
+          scanOverlay.classList.add('active');
+          textarea.classList.add('scan-pulse');
+
+          setTimeout(() => {
+            const res = analyzeRisk(txt);
+            renderResult(res.risk, res.score, res.details, liveDiv);
+
+            scanOverlay.classList.remove('active');
+            textarea.classList.remove('scan-pulse');
+            analyzeBtn.disabled = false;
+
+            const timestamp = new Date().toLocaleString();
+            const preview = txt.substring(0, 50).replace(/\n/g, ' ') + (txt.length>50 ? '…' : '');
+            scanHistory.unshift({ timestamp, preview, risk: res.risk, score: res.score, full: txt });
+            if (scanHistory.length > 15) scanHistory.pop();
+            saveHistory();
+          }, 400);
+        });
+
+        // MANUAL DOWNLOAD button event
+        document.getElementById('manualInstallBtn').addEventListener('click', manualDownload);
+      }
+
+      function renderScanHistory() {
+        let histHtml = `<div class="panel-title">Scan History</div><div class="panel-sub">Previously analyzed emails (persistent storage)</div>`;
+        if (scanHistory.length === 0) {
+          histHtml += `<div style="background:rgba(0,30,70,0.4); border-radius:32px; padding:2rem; color:white;">📭 No scans yet.</div>`;
+        } else {
+          scanHistory.forEach((item, idx) => {
+            histHtml += `
+              <div class="history-item">
+                <div><i class="fa-regular fa-clock"></i> ${item.timestamp}<br><span style="color:#b0d0ff;">${item.preview}</span></div>
+                <div style="display:flex; gap:12px;">
+                  <span class="badge">${item.risk} ${item.score}</span>
+                  <button class="reloadScan" data-index="${idx}" style="background:rgba(255,255,255,0.2); border:1px solid white; border-radius:40px; padding:0.3rem 1.2rem; color:white; cursor:pointer;"><i class="fa-regular fa-folder-open"></i> load</button>
+                </div>
+              </div>
+            `;
+          });
+        }
+        histHtml += `
+          <div class="install-section">
+            <div class="install-text"><i class="fas fa-download"></i> Get PhishGuard PRO</div>
+            <button class="manual-download-btn" id="historyInstallBtn"><i class="fa-solid fa-save"></i> Save App (Manual)</button>
+            <div class="manual-instruction">Save HTML file → open on any device</div>
+          </div>
+          <div class="footer-note">
+            <span>${scanHistory.length} entries</span>
+            <span id="clearHistory" style="cursor:pointer;"><i class="fa-regular fa-trash-can"></i> clear all</span>
+          </div>
+        `;
+        main.innerHTML = histHtml;
+
+        document.querySelectorAll('.reloadScan').forEach(btn => {
+          btn.addEventListener('click', (e) => {
+            const idx = e.currentTarget.getAttribute('data-index');
+            const entry = scanHistory[idx];
+            if (entry) { setActivePage('newAnalysis'); renderNewAnalysis(entry.full); }
+          });
+        });
+
+        document.getElementById('clearHistory')?.addEventListener('click', () => {
+          scanHistory = [];
+          saveHistory();
+          renderScanHistory();
+        });
+
+        document.getElementById('historyInstallBtn')?.addEventListener('click', manualDownload);
+      }
+
+      function setActivePage(page) {
+        currentPage = page;
+        if (page === 'newAnalysis') {
+          navNew.classList.add('active'); navHistory.classList.remove('active');
+          renderNewAnalysis();
+        } else {
+          navHistory.classList.add('active'); navNew.classList.remove('active');
+          renderScanHistory();
+        }
+      }
+
+      navNew.addEventListener('click', () => setActivePage('newAnalysis'));
+      navHistory.addEventListener('click', () => setActivePage('scanHistory'));
+
+      setActivePage('newAnalysis');
+    })();
+  </script>
+</body>
+</html>
