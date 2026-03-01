@@ -2,12 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
-  <title>PhishGuard PRO · manual download</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes, viewport-fit=cover">
+  <title>PhishGuard PRO ·</title>
   <!-- Font Awesome 6 (free) -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- PWA manifest for standalone home screen app -->
+  <link rel="manifest" href="data:application/manifest+json,%7B%22name%22%3A%22PhishGuard%20PRO%22%2C%22short_name%22%3A%22PhishGuard%22%2C%22start_url%22%3A%22.%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%220a2540%22%2C%22theme_color%22%3A%221f5fcf%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2250%22%20r%3D%2245%22%20fill%3D%22%230a2540%22%2F%3E%3Cpath%20fill%3D%22%23ffffff%22%20d%3D%22M32%2032h36v36H32z%22%2F%3E%3Ctext%20x%3D%2230%22%20y%3D%2268%22%20font-size%3D%2245%22%20fill%3D%22%23ffffff%22%3E%3C%2Ftext%3E%3C%2Fsvg%3E%22%2C%22sizes%22%3A%22192x192%22%2C%22type%22%3A%22image%2Fsvg%2Bxml%22%7D%5D%7D">
   <style>
-    /* -------------------- PROFESSIONAL GLASS BLUE -------------------- */
+    /* -------------------- RESET & BASE (FITS ALL DEVICES) -------------------- */
     * {
       margin: 0;
       padding: 0;
@@ -15,94 +17,109 @@
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     }
 
+    html {
+      width: 100%;
+      overflow-x: hidden;
+    }
+
     body {
       min-height: 100vh;
+      width: 100%;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 18px;
+      padding: clamp(8px, 2vw, 20px);
       background: radial-gradient(circle at 0% 30%, rgba(40, 120, 255, 0.5), rgba(5, 25, 60, 0.98)),
                   linear-gradient(145deg, #0a2540 0%, #1f5f9e 100%);
       background-attachment: fixed;
       position: relative;
     }
 
+    /* floating glass effect */
     body::before {
       content: "";
       position: fixed;
-      width: 70vmax;
-      height: 70vmax;
-      top: -20vh;
-      right: -10vw;
+      width: min(70vmax, 800px);
+      height: min(70vmax, 800px);
+      top: -10vh;
+      right: -5vw;
       background: radial-gradient(circle, rgba(120, 200, 255, 0.15) 0%, transparent 70%);
       border-radius: 50%;
       pointer-events: none;
       z-index: 0;
     }
 
+    /* main card – fully responsive */
     .phishguard-app {
       width: 100%;
-      max-width: 1200px;
+      max-width: 1400px;
       background: rgba(18, 40, 70, 0.35);
       backdrop-filter: blur(22px) saturate(200%);
       -webkit-backdrop-filter: blur(22px) saturate(200%);
-      border-radius: 48px;
+      border-radius: clamp(24px, 5vw, 48px);
       box-shadow: 0 40px 80px rgba(0, 10, 30, 0.7), 0 0 0 1.5px rgba(255, 255, 255, 0.2) inset;
       border: 1px solid rgba(255, 255, 255, 0.2);
       overflow: hidden;
       z-index: 10;
     }
 
+    /* header – flexible */
     .app-header {
       display: flex;
+      flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
-      padding: 1.2rem 2.2rem;
+      padding: clamp(0.8rem, 3vw, 1.5rem) clamp(1rem, 4vw, 2.5rem);
       background: rgba(10, 30, 60, 0.4);
       border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+      gap: 12px;
     }
 
     .logo-area {
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: clamp(8px, 2vw, 16px);
+      flex-wrap: wrap;
     }
 
     .shield-icon {
       background: linear-gradient(150deg, #2266cc, #103a70);
       color: white;
-      width: 58px;
-      height: 58px;
-      border-radius: 20px;
+      width: clamp(45px, 8vw, 65px);
+      height: clamp(45px, 8vw, 65px);
+      border-radius: clamp(15px, 3vw, 22px);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 2rem;
+      font-size: clamp(1.5rem, 5vw, 2.2rem);
       box-shadow: 0 18px 30px rgba(0, 0, 0, 0.5);
       border: 1px solid rgba(255,255,255,0.3);
     }
 
     .logo-area h1 {
       font-weight: 700;
-      font-size: 2.3rem;
+      font-size: clamp(1.6rem, 5vw, 2.5rem);
       background: linear-gradient(to right, #ffffff, #cde1ff);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
       text-shadow: 0 5px 20px #003388;
+      line-height: 1.2;
     }
 
     .badge-header {
       background: rgba(0, 180, 150, 0.3);
       backdrop-filter: blur(10px);
       color: white;
-      padding: 0.6rem 2rem;
+      padding: 0.5rem clamp(1rem, 3vw, 2rem);
       border-radius: 60px;
       border: 1px solid rgba(255,255,255,0.5);
       font-weight: 600;
-      font-size: 0.9rem;
+      font-size: clamp(0.7rem, 2vw, 0.95rem);
+      white-space: nowrap;
     }
 
+    /* layout – responsive flex */
     .app-layout {
       display: flex;
       flex-direction: column;
@@ -114,47 +131,59 @@
       }
     }
 
+    /* sidebar – collapsible behavior */
     .nav-sidebar {
       background: rgba(8, 25, 45, 0.5);
       backdrop-filter: blur(18px);
-      padding: 2rem 1rem 2rem 1.8rem;
+      padding: clamp(1.2rem, 3vw, 2.5rem) clamp(0.8rem, 2vw, 1.5rem) clamp(1.5rem, 4vw, 2.5rem) clamp(1rem, 3vw, 2rem);
       border-right: 1px solid rgba(255, 255, 255, 0.15);
+      width: 100%;
     }
 
     @media (min-width: 720px) {
       .nav-sidebar {
         width: 260px;
+        min-width: 220px;
       }
     }
 
     .nav-header {
       text-transform: uppercase;
-      font-size: 0.7rem;
+      font-size: clamp(0.6rem, 1.5vw, 0.75rem);
       font-weight: 600;
       color: rgba(200, 220, 250, 0.8);
       letter-spacing: 0.12em;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.2rem;
     }
 
     .nav-item {
       display: flex;
       align-items: center;
-      gap: 16px;
-      padding: 0.9rem 1rem;
-      margin-right: 1.2rem;
+      gap: clamp(10px, 2vw, 16px);
+      padding: clamp(0.7rem, 2vw, 1rem) clamp(0.8rem, 2vw, 1.2rem);
+      margin-right: 0.5rem;
       border-radius: 30px 0 0 30px;
       color: white;
       font-weight: 500;
-      font-size: 1rem;
+      font-size: clamp(0.9rem, 2vw, 1.1rem);
       cursor: pointer;
       transition: all 0.2s;
       border: 1px solid transparent;
+      white-space: nowrap;
+    }
+
+    @media (max-width: 480px) {
+      .nav-item {
+        white-space: normal;
+        word-break: break-word;
+      }
     }
 
     .nav-item i {
-      width: 26px;
+      width: 24px;
       font-size: 1.2rem;
       color: rgba(255, 255, 255, 0.9);
+      flex-shrink: 0;
     }
 
     .nav-item.active {
@@ -163,31 +192,33 @@
       border-top: 1px solid rgba(255,255,255,0.3);
       border-bottom: 1px solid rgba(255,255,255,0.3);
       font-weight: 600;
-      box-shadow: 0 12px 30px rgba(0, 20, 60, 0.5);
     }
 
+    /* main content panel */
     .content-panel {
       flex: 1;
       background: rgba(18, 45, 75, 0.25);
       backdrop-filter: blur(24px);
-      padding: 2.2rem 2.5rem 2.5rem 2.5rem;
+      padding: clamp(1.2rem, 4vw, 2.5rem) clamp(1.2rem, 4vw, 2.8rem);
       border-radius: 0 0 48px 0;
+      width: 100%;
     }
 
     .panel-title {
-      font-size: 2.3rem;
+      font-size: clamp(1.8rem, 5vw, 2.6rem);
       font-weight: 700;
       background: linear-gradient(to bottom, #fff, #d0e8ff);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
-      margin-bottom: 0.25rem;
+      line-height: 1.2;
+      margin-bottom: 0.2rem;
     }
 
     .panel-sub {
       color: rgba(255, 255, 255, 0.85);
-      font-size: 1rem;
-      margin-bottom: 2rem;
+      font-size: clamp(0.85rem, 2vw, 1rem);
+      margin-bottom: clamp(1.2rem, 3vw, 2rem);
     }
 
     .input-label {
@@ -197,28 +228,29 @@
       display: flex;
       align-items: center;
       gap: 8px;
+      font-size: clamp(0.9rem, 2vw, 1rem);
     }
 
-    /* ===== TEXTAREA WITH SCAN ANIMATION OVERLAY ===== */
+    /* textarea wrapper with scan animation */
     .textarea-wrapper {
       position: relative;
       width: 100%;
-      border-radius: 28px;
+      border-radius: clamp(20px, 4vw, 28px);
       overflow: hidden;
     }
 
     .email-textarea {
       width: 100%;
       border: 2px solid rgba(255, 255, 255, 0.5);
-      border-radius: 28px;
-      padding: 1.3rem;
+      border-radius: clamp(20px, 4vw, 28px);
+      padding: clamp(1rem, 3vw, 1.5rem);
       background: rgba(0, 20, 40, 0.3);
       backdrop-filter: blur(20px);
       color: white;
-      font-size: 1rem;
+      font-size: clamp(0.9rem, 2vw, 1rem);
       line-height: 1.5;
       resize: vertical;
-      min-height: 200px;
+      min-height: min(200px, 30vh);
       font-family: 'SF Mono', 'Fira Code', monospace;
       transition: border 0.2s;
       position: relative;
@@ -228,10 +260,10 @@
     .email-textarea:focus {
       outline: none;
       border-color: white;
-      box-shadow: 0 0 0 6px rgba(255,255,255,0.1);
+      box-shadow: 0 0 0 4px rgba(255,255,255,0.1);
     }
 
-    /* scanning animation overlay */
+    /* scanning overlay */
     .scan-overlay {
       position: absolute;
       top: 0;
@@ -245,7 +277,7 @@
         rgba(120, 220, 255, 0.2) 75%,
         rgba(0, 160, 255, 0.1) 100%);
       background-size: 300% 100%;
-      border-radius: 28px;
+      border-radius: clamp(20px, 4vw, 28px);
       pointer-events: none;
       z-index: 5;
       mix-blend-mode: overlay;
@@ -265,7 +297,6 @@
       100% { background-position: 300% 0%; }
     }
 
-    /* additional scanning pulse on text */
     .scan-pulse {
       animation: textPulse 1.2s ease-in-out infinite;
     }
@@ -278,27 +309,30 @@
 
     .char-stats {
       display: flex;
+      flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
       margin: 0.8rem 0 1.5rem;
+      gap: 8px;
     }
 
     .char-count {
       background: rgba(0, 20, 50, 0.5);
       backdrop-filter: blur(10px);
-      padding: 0.4rem 1.4rem;
+      padding: 0.4rem 1.2rem;
       border-radius: 40px;
       color: white;
       border: 1px solid rgba(255,255,255,0.3);
+      font-size: clamp(0.8rem, 2vw, 0.9rem);
     }
 
     .analyze-btn {
       background: linear-gradient(145deg, #2a6fd6, #12428b);
       border: none;
       color: white;
-      padding: 1rem 2rem;
+      padding: clamp(0.8rem, 2.5vw, 1.2rem) clamp(1rem, 3vw, 2rem);
       width: 100%;
-      font-size: 1.3rem;
+      font-size: clamp(1.1rem, 3vw, 1.4rem);
       font-weight: 600;
       border-radius: 60px;
       display: flex;
@@ -311,31 +345,28 @@
       transition: 0.15s;
     }
 
-    .analyze-btn:active { transform: scale(0.98); background: #1e56b0; }
-    .analyze-btn:disabled { opacity: 0.6; cursor: not-allowed; }
-
     .result-card {
       background: rgba(0, 20, 50, 0.4);
       backdrop-filter: blur(30px);
-      border-radius: 36px;
-      padding: 1.8rem;
-      margin: 2rem 0 1rem;
-      border-left: 12px solid;
+      border-radius: clamp(24px, 5vw, 36px);
+      padding: clamp(1.2rem, 3vw, 2rem);
+      margin: 1.8rem 0 1rem;
+      border-left: clamp(8px, 2vw, 12px) solid;
       color: white;
     }
 
     .risk-header {
       display: flex;
       align-items: center;
-      gap: 15px;
+      gap: clamp(8px, 2vw, 15px);
       flex-wrap: wrap;
       margin-bottom: 1rem;
     }
 
-    .risk-icon { font-size: 2.5rem; }
-    .risk-title { font-size: 1.8rem; font-weight: 700; }
+    .risk-icon { font-size: clamp(2rem, 6vw, 2.8rem); }
+    .risk-title { font-size: clamp(1.3rem, 4vw, 1.9rem); font-weight: 700; }
     .badge {
-      padding: 0.4rem 1.4rem;
+      padding: 0.3rem 1.2rem;
       border-radius: 40px;
       font-weight: 600;
       background: rgba(255,255,255,0.2);
@@ -343,13 +374,15 @@
       border: 1px solid white;
       color: white;
       margin-left: auto;
+      font-size: clamp(0.7rem, 2vw, 0.85rem);
+      white-space: nowrap;
     }
 
     .history-item {
       background: rgba(10, 30, 60, 0.4);
       backdrop-filter: blur(20px);
       border-radius: 28px;
-      padding: 1.2rem 1.5rem;
+      padding: clamp(0.8rem, 2.5vw, 1.3rem) clamp(1rem, 3vw, 1.8rem);
       border: 1px solid rgba(255,255,255,0.3);
       margin-bottom: 1rem;
       display: flex;
@@ -357,54 +390,61 @@
       align-items: center;
       justify-content: space-between;
       color: white;
+      gap: 12px;
     }
 
-    /* Manual Install Section - with clear instructions */
+    /* Install section – fully responsive */
     .install-section {
       background: rgba(30, 80, 140, 0.35);
       backdrop-filter: blur(30px);
-      border-radius: 48px;
+      border-radius: clamp(30px, 6vw, 48px);
       margin: 2rem 0 0.8rem;
-      padding: 1.5rem 2rem;
+      padding: clamp(1rem, 3vw, 2rem);
       display: flex;
       flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
       border: 2px solid rgba(255,255,255,0.5);
+      gap: 16px;
     }
 
     .install-text {
       display: flex;
       align-items: center;
-      gap: 15px;
+      gap: 12px;
       color: white;
-      font-size: 1.2rem;
+      font-size: clamp(1rem, 3vw, 1.3rem);
       font-weight: 600;
     }
 
-    .manual-download-btn {
+    .home-screen-btn {
       background: rgba(255,255,255,0.2);
       border: 2px solid white;
       color: white;
-      padding: 0.8rem 2.5rem;
+      padding: 0.6rem clamp(1.2rem, 4vw, 2.5rem);
       border-radius: 60px;
       font-weight: 700;
-      font-size: 1.2rem;
+      font-size: clamp(0.9rem, 2.5vw, 1.2rem);
       cursor: pointer;
       backdrop-filter: blur(10px);
       transition: 0.15s;
       display: inline-flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
+      white-space: nowrap;
     }
 
-    .manual-download-btn:hover {
-      background: rgba(255,255,255,0.35);
+    @media (max-width: 480px) {
+      .home-screen-btn {
+        white-space: normal;
+        width: 100%;
+        justify-content: center;
+      }
     }
 
-    .manual-instruction {
-      font-size: 0.9rem;
-      color: rgba(255,255,255,0.8);
+    .home-instruction {
+      font-size: clamp(0.75rem, 2vw, 0.9rem);
+      color: rgba(255,255,255,0.9);
       margin-top: 0.5rem;
       width: 100%;
       text-align: center;
@@ -414,22 +454,45 @@
 
     .webforge-credit {
       text-align: center;
-      padding: 1rem;
+      padding: clamp(0.8rem, 2vw, 1.2rem);
       color: rgba(255,255,255,0.9);
       border-top: 1px solid rgba(255,255,255,0.2);
       background: rgba(0,0,0,0.15);
       font-weight: 500;
-      font-size: 1rem;
+      font-size: clamp(0.8rem, 2vw, 1rem);
     }
 
     .footer-note {
       display: flex;
+      flex-wrap: wrap;
       justify-content: space-between;
       color: rgba(255,255,255,0.8);
-      font-size: 0.8rem;
+      font-size: clamp(0.7rem, 1.8vw, 0.85rem);
       margin-top: 1.5rem;
       padding-top: 1rem;
       border-top: 1px solid rgba(255,255,255,0.2);
+      gap: 10px;
+    }
+
+    /* small screen adjustments */
+    @media (max-width: 480px) {
+      .app-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      
+      .badge-header {
+        align-self: flex-start;
+      }
+      
+      .nav-item {
+        border-radius: 30px;
+        margin-right: 0;
+      }
+      
+      .nav-item.active {
+        border-left: 6px solid white;
+      }
     }
   </style>
 </head>
@@ -438,9 +501,9 @@
     <div class="app-header">
       <div class="logo-area">
         <div class="shield-icon"><i class="fas fa-shield-virus"></i></div>
-        <h1>PhishGuard PRO</h1>
+        <h1>PhishGuard </h1>
       </div>
-      <div class="badge-header"><i class="fas fa-check-circle"></i>WEBFORGE · Team</div>
+      <div class="badge-header"><i class="fas fa-check-circle"></i>WEBFORGE· Team</div>
     </div>
 
     <div class="app-layout">
@@ -448,8 +511,8 @@
         <div class="nav-header">NAVIGATION</div>
         <div class="nav-item active" id="navNewAnalysis"><i class="fas fa-file-lines"></i> New Analysis</div>
         <div class="nav-item" id="navScanHistory"><i class="fas fa-clock-rotate-left"></i> Scan History</div>
-        <div style="margin-top: 2.5rem; color: rgba(255,255,255,0.5); padding-left: 1rem;">
-          <i class="fa-regular fa-copyright"></i> professional edition
+        <div style="margin-top: 2.5rem; color: rgba(255,255,255,0.5); padding-left: 0.5rem; font-size: 0.9rem;">
+          <i class="fa-regular fa-copyright"></i> responsive design
         </div>
       </div>
 
@@ -478,7 +541,7 @@
       const navNew = document.getElementById('navNewAnalysis');
       const navHistory = document.getElementById('navScanHistory');
 
-      // Advanced phishing engine
+      // Advanced phishing engine (same as before)
       function analyzeRisk(emailText) {
         const lower = emailText.toLowerCase();
         let score = 0;
@@ -553,56 +616,40 @@
               <span class="badge">score ${score}/100</span>
             </div>
             ${detailHtml}
-            <div style="display:flex; align-items:center; gap:12px; margin-top:1rem;">
-              <span>threat level</span>
-              <div class="meter-bar"><div class="meter-fill" style="width:${score}%; background:white;"></div></div>
-              <span>${score}%</span>
+            <div style="display:flex; align-items:center; gap:12px; margin-top:1rem; flex-wrap:wrap;">
+              <span style="font-size:clamp(0.8rem,2vw,0.9rem);">threat level</span>
+              <div class="meter-bar" style="height:12px; background:rgba(255,255,255,0.2); border-radius:20px; flex:1; min-width:100px;"><div class="meter-fill" style="height:12px; border-radius:20px; width:${score}%; background:white;"></div></div>
+              <span style="font-size:clamp(0.8rem,2vw,0.9rem);">${score}%</span>
             </div>
           </div>
         `;
       }
 
-      // MANUAL DOWNLOAD METHOD - creates a downloadable link (manual save)
-      function manualDownload() {
-        // Create the full HTML content as a string
-        const doctype = '<!DOCTYPE html>\n';
-        const html = document.documentElement.outerHTML;
-        const blob = new Blob([doctype + html], { type: 'text/html' });
+      // Home screen install guide
+      function guideHomeScreenInstall() {
+        const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true;
         
-        // Create an object URL
-        const url = URL.createObjectURL(blob);
-        
-        // Create a temporary anchor element with download attribute
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'PhishGuard_Professional.html'; // filename for download
-        a.style.display = 'none';
-        
-        // Append to body, click, and remove (manual trigger)
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        
-        // Clean up the object URL
-        URL.revokeObjectURL(url);
-        
-        // Optional: Show a small confirmation (appears in result area if needed)
-        const liveResult = document.getElementById('liveResult');
-        if (liveResult) {
-          const msg = document.createElement('div');
-          msg.style.background = 'rgba(0,100,200,0.3)';
-          msg.style.borderRadius = '20px';
-          msg.style.padding = '0.8rem';
-          msg.style.marginTop = '1rem';
-          msg.style.textAlign = 'center';
-          msg.style.color = 'white';
-          msg.innerHTML = '📁 Download started — save the file to install PhishGuard on any device.';
-          liveResult.appendChild(msg);
-          setTimeout(() => msg.remove(), 4000);
+        if (isStandalone) {
+          alert('✅ PhishGuard is already installed on your home screen and running as a standalone app.');
+          return;
         }
+
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        const isAndroid = /Android/.test(navigator.userAgent);
+        
+        let message = '📱 To install PhishGuard on your home screen:\n\n';
+        if (isIOS) {
+          message += '• Tap the Share button (📤) at the bottom.\n• Scroll down and tap "Add to Home Screen".\n• Then tap "Add".';
+        } else if (isAndroid) {
+          message += '• Tap the menu (⋮) in Chrome.\n• Tap "Add to Home screen".\n• Then tap "Add" / "Install".';
+        } else {
+          message += '• In Chrome/Edge: Click the install icon (➕) in the address bar.\n• Or use menu → "Install page as app".\n\nAfter installation, it will open in its own window.';
+        }
+        
+        alert(message);
       }
 
-      // Render New Analysis with SCAN ANIMATION
+      // Render New Analysis
       function renderNewAnalysis(initialText = '') {
         const defaultText = initialText || `From: support@paypa1.com
 Reply-To: verify-now@fake-account.tk
@@ -618,7 +665,7 @@ We take security seriously.`;
         const escaped = defaultText.replace(/</g, '&lt;');
         const html = `
           <div class="panel-title">New Analysis</div>
-          <div class="panel-sub">Paste email content — scanning animation included</div>
+          <div class="panel-sub">Paste email content — responsive on all devices</div>
           <div class="input-label"><i class="fas fa-paste"></i> Raw Email Content</div>
           <div class="textarea-wrapper">
             <textarea id="emailInput" class="email-textarea" placeholder="Paste email content...">${escaped}</textarea>
@@ -631,22 +678,22 @@ We take security seriously.`;
           <button class="analyze-btn" id="analyzeBtn"><i class="fa-solid fa-bolt"></i> Run Professional Analysis</button>
           <div id="liveResult"></div>
 
-          <!-- MANUAL INSTALL SECTION (manual download) -->
+          <!-- HOME SCREEN INSTALL SECTION (responsive) -->
           <div class="install-section">
             <div class="install-text">
-              <i class="fas fa-download" style="font-size:2rem;"></i> Install PhishGuard
+              <i class="fas fa-home" style="font-size:clamp(1.5rem,4vw,2rem);"></i> Add to Home Screen
             </div>
-            <button class="manual-download-btn" id="manualInstallBtn">
-              <i class="fa-solid fa-save"></i> Save App (Manual)
+            <button class="home-screen-btn" id="homeScreenBtn">
+              <i class="fa-solid fa-download"></i> Install App
             </button>
-            <div class="manual-instruction">
-              <i class="fa-regular fa-circle-question"></i> Click button → save HTML file → open on any device
+            <div class="home-instruction">
+              <i class="fa-regular fa-circle-check"></i> Opens standalone · fits all devices
             </div>
           </div>
 
           <div class="footer-note">
             <span><i class="fa-regular fa-shield"></i> WebForge v2.0</span>
-            <span><i class="fa-regular fa-clock"></i> real‑time</span>
+            <span><i class="fa-regular fa-mobile"></i> responsive</span>
           </div>
         `;
         main.innerHTML = html;
@@ -661,7 +708,6 @@ We take security seriously.`;
         const res = analyzeRisk(defaultText);
         renderResult(res.risk, res.score, res.details, liveDiv);
 
-        // Scan animation on click
         analyzeBtn.addEventListener('click', () => {
           const txt = textarea.value;
           if (txt.length < 10) {
@@ -689,20 +735,19 @@ We take security seriously.`;
           }, 400);
         });
 
-        // MANUAL DOWNLOAD button event
-        document.getElementById('manualInstallBtn').addEventListener('click', manualDownload);
+        document.getElementById('homeScreenBtn').addEventListener('click', guideHomeScreenInstall);
       }
 
       function renderScanHistory() {
-        let histHtml = `<div class="panel-title">Scan History</div><div class="panel-sub">Previously analyzed emails (persistent storage)</div>`;
+        let histHtml = `<div class="panel-title">Scan History</div><div class="panel-sub">Previously analyzed emails (persistent)</div>`;
         if (scanHistory.length === 0) {
           histHtml += `<div style="background:rgba(0,30,70,0.4); border-radius:32px; padding:2rem; color:white;">📭 No scans yet.</div>`;
         } else {
           scanHistory.forEach((item, idx) => {
             histHtml += `
               <div class="history-item">
-                <div><i class="fa-regular fa-clock"></i> ${item.timestamp}<br><span style="color:#b0d0ff;">${item.preview}</span></div>
-                <div style="display:flex; gap:12px;">
+                <div style="flex:2; min-width:180px;"><i class="fa-regular fa-clock"></i> ${item.timestamp}<br><span style="color:#b0d0ff; word-break:break-word;">${item.preview}</span></div>
+                <div style="display:flex; gap:12px; align-items:center; flex-wrap:wrap;">
                   <span class="badge">${item.risk} ${item.score}</span>
                   <button class="reloadScan" data-index="${idx}" style="background:rgba(255,255,255,0.2); border:1px solid white; border-radius:40px; padding:0.3rem 1.2rem; color:white; cursor:pointer;"><i class="fa-regular fa-folder-open"></i> load</button>
                 </div>
@@ -712,9 +757,9 @@ We take security seriously.`;
         }
         histHtml += `
           <div class="install-section">
-            <div class="install-text"><i class="fas fa-download"></i> Get PhishGuard PRO</div>
-            <button class="manual-download-btn" id="historyInstallBtn"><i class="fa-solid fa-save"></i> Save App (Manual)</button>
-            <div class="manual-instruction">Save HTML file → open on any device</div>
+            <div class="install-text"><i class="fas fa-home"></i> Home Screen App</div>
+            <button class="home-screen-btn" id="historyInstallBtn"><i class="fa-solid fa-download"></i> Install</button>
+            <div class="home-instruction">Opens standalone · fits all screens</div>
           </div>
           <div class="footer-note">
             <span>${scanHistory.length} entries</span>
@@ -737,7 +782,7 @@ We take security seriously.`;
           renderScanHistory();
         });
 
-        document.getElementById('historyInstallBtn')?.addEventListener('click', manualDownload);
+        document.getElementById('historyInstallBtn')?.addEventListener('click', guideHomeScreenInstall);
       }
 
       function setActivePage(page) {
@@ -755,6 +800,28 @@ We take security seriously.`;
       navHistory.addEventListener('click', () => setActivePage('scanHistory'));
 
       setActivePage('newAnalysis');
+
+      // Detect standalone mode
+      if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true) {
+        setTimeout(() => {
+          const msg = document.createElement('div');
+          msg.style.position = 'fixed';
+          msg.style.bottom = '20px';
+          msg.style.right = '20px';
+          msg.style.background = 'rgba(0,200,150,0.3)';
+          msg.style.backdropFilter = 'blur(10px)';
+          msg.style.color = 'white';
+          msg.style.padding = '0.8rem 1.5rem';
+          msg.style.borderRadius = '60px';
+          msg.style.border = '1px solid white';
+          msg.style.zIndex = '9999';
+          msg.style.fontSize = 'clamp(0.7rem,2vw,0.9rem)';
+          msg.style.maxWidth = '90%';
+          msg.innerHTML = '🏠 Running as standalone home screen app';
+          document.body.appendChild(msg);
+          setTimeout(() => msg.remove(), 4000);
+        }, 500);
+      }
     })();
   </script>
 </body>
